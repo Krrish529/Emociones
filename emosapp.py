@@ -21,7 +21,7 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    print("ARCHIVOS RECIBIDOS:", request.files)  # <-- Esto sí va aquí
+    print("ARCHIVOS RECIBIDOS:", request.files)
 
     if 'image' not in request.files:
         return "❌ ERROR: No se envió ninguna imagen."
@@ -53,4 +53,7 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Tomar el puerto que Render asigna
+    port = int(os.environ.get("PORT", 5000))
+    # Escuchar en todas las interfaces de red
+    app.run(host="0.0.0.0", port=port)
